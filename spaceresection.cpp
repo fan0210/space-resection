@@ -284,9 +284,6 @@ void SpaceResection::accuracyCompute(double &m0)const
 	}
 
 	m0 = sqrt(vv / (2 * m_imagePoints.size() - 14));
-
-	for (int i = 0; i < Q.rows; ++i)
-		double mi_ = sqrt(Q.at<double>(i, i))*m0;
 }
 
 void SpaceResection::storage(double &m0, const std::string &file)const
@@ -310,8 +307,6 @@ void SpaceResection::storage(double &m0, const std::string &file)const
 	fout <<m_k1 << "   " << m_k2 << "   " << m_p1 << "   " << m_p2 << std::endl;
 	fout << std::endl;
 
-	fout << std::fixed << std::setprecision(6);
-
-	fout << "m0: " << m0 << std::endl;
+	fout << std::fixed << std::setprecision(6) << "m0: " << m0 << std::endl;
 	fout << std::endl;
 }
