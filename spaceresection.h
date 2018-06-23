@@ -9,15 +9,15 @@ class SpaceResection
 {
 public:
 	/*
-	* elems include {fx,fy,x0,y0,k1,k2,p1,p2,width,height,X,Y,Z,phi,omega,kappa} phi,omega,kappa以角度为单位
+	* elems include {fx,fy,x0,y0,k1,k2,p1,p2,width,height,X,Y,Z,phi,omega,kappa} phi,omega,kappa浠ヨ搴︿负鍗曚綅
 	*/
 	SpaceResection &setInitialValue(const std::vector<double> &elems);     
 
-	//像点坐标为以图像中心为原点，y轴向上，x轴向右的坐标系下的坐标（非屏幕坐标）
-	//文件共有3列n行，每一行第一列为点的id,第二列为x坐标，第三列为y坐标
+	//鍍忕偣鍧愭爣涓轰互鍥惧儚涓績涓哄師鐐癸紝y杞村悜涓婏紝x杞村悜鍙崇殑鍧愭爣绯讳笅鐨勫潗鏍囷紙闈炲睆骞曞潗鏍囷級
+	//鏂囦欢鍏辨湁3鍒梟琛岋紝姣忎竴琛岀涓�鍒椾负鐐圭殑id,绗簩鍒椾负x鍧愭爣锛岀涓夊垪涓簓鍧愭爣
 	bool importImagePoints(const std::string &file);
 
-	//文件共有4列n行，每一行第一列为点的id,第二列为X坐标，第三列为Y坐标,第四列为Z坐标
+	//鏂囦欢鍏辨湁4鍒梟琛岋紝姣忎竴琛岀涓�鍒椾负鐐圭殑id,绗簩鍒椾负X鍧愭爣锛岀涓夊垪涓篩鍧愭爣,绗洓鍒椾负Z鍧愭爣
 	bool importControlPoints(const std::string &file);
 
 	/*
@@ -66,8 +66,8 @@ private:
 	double angleToRadian(double angle)const { return angle / 180.0*CV_PI; }
 	double radianToAngle(double radian)const { return radian / CV_PI*180.0; }
 
-	void accuracyCompute(double &, std::vector<double> &, std::vector<double> &)const;
-	void storage(double &, std::vector<double> &, std::vector<double> &, const std::string &)const;
+	void accuracyCompute(double &)const;
+	void storage(double &, const std::string &)const;
 };
 
 #endif
