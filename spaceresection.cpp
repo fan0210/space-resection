@@ -188,19 +188,18 @@ const std::vector<double> &SpaceResection::slove(const std::string &file)
 		{
 			m_corrected_elems = { m_fx, m_fy, m_x0, m_y0 ,m_k1, m_k2, m_p1, m_p2 ,m_X, m_Y, m_Z, radianToAngle(m_phi), radianToAngle(m_omega), radianToAngle(m_kappa) };
 
-			std::vector<double>mi, vi;
 			double m0 = 0;
-			accuracyCompute(m0, mi, vi);
+			accuracyCompute(m0);
 
-			storage(m0, mi, vi, file);
+			storage(m0, file);
 
-			std::clog << "¹²µü´ú: " << iterate_times - 1 << " ´Î" << std::endl;
+			std::clog << "å…±è¿­ä»£: " << iterate_times - 1 << " æ¬¡" << std::endl;
 			return m_corrected_elems;
 		}
 
 		if (iterate_times > 100)
 		{
-			std::clog << "ÊÕÁ²Ê§°Ü£¡" << std::endl;
+			std::clog << "æ”¶æ•›å¤±è´¥ï¼" << std::endl;
 
 			system("pause");
 			exit(0);
@@ -208,7 +207,7 @@ const std::vector<double> &SpaceResection::slove(const std::string &file)
 	}
 }
 
-void SpaceResection::accuracyCompute(double &m0, std::vector<double> &mi, std::vector<double> &vi)const
+void SpaceResection::accuracyCompute(double &m0)const
 {
 	cv::Mat_<double> A(cv::Size(14, m_imagePoints.size() * 2), 0);
 	cv::Mat_<double> L(cv::Size(1, m_imagePoints.size() * 2), 0);
@@ -281,22 +280,16 @@ void SpaceResection::accuracyCompute(double &m0, std::vector<double> &mi, std::v
 	{
 		double *data = V.ptr<double>(i);
 		for (auto j = 0; j < V.cols; ++j)
-		{
 			vv += data[j] * data[j];
-			vi.push_back(data[j]);
-		}
 	}
 
 	m0 = sqrt(vv / (2 * m_imagePoints.size() - 14));
 
 	for (int i = 0; i < Q.rows; ++i)
-	{
 		double mi_ = sqrt(Q.at<double>(i, i))*m0;
-		mi.push_back(mi_);
-	}
 }
 
-void SpaceResection::storage(double &m0, std::vector<double> &mi, std::vector<double> &vi, const std::string &file)const
+void SpaceResection::storage(double &m0, const std::string &file)const
 {
 	std::fstream fout(file, std::ios::out);
 	if (!fout)
